@@ -12,7 +12,7 @@ export class AppController {
   }
 
   @Post()
-  createHello(@Body() body: CreateHello) {
+  createHello(@Body() body: CreateHello): string {
     return body.first_names;
   }
 }

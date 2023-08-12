@@ -10,7 +10,7 @@ export class AppService {
     const a = await this.prisma.user.create({
       data: {
         name: 'a',
-        email: 'b',
+        email: 'basdf',
         createdAt: new Date(),
       },
     });

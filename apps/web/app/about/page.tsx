@@ -1,11 +1,10 @@
 export const dynamic = "force-dynamic";
 
 import { use } from "react";
-import { Hello } from "shared";
-import { Button, Header } from "ui";
+import { CreateHello, CreateHelloObject, Hello } from "shared";
 
 async function getData(): Promise<Hello> {
-  const res = await fetch("http://127.0.0.1:3000");
+  const res = await fetch("http://127.0.0.1:3001");
   if (res.status != 200) {
     console.error("error");
     return { message: "error" };
@@ -16,11 +15,28 @@ async function getData(): Promise<Hello> {
 export default function Page() {
   const data: Hello = use(getData());
 
+  async function postData(url, data: CreateHello): Promise<string> {
+    const res = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(data),
+    });
+
+    return res.json();
+  }
+
   return (
     <>
-      <Header text="Web" />
-      {data?.message}
-      <Button />
+      <div
+        onClick={() =>
+          postData("http://127.0.0.1:3001", {
+            last_name: "1",
+            first_names: "b",
+          })
+        }
+      >
+        {data?.message}
+      </div>
     </>
   );
 }
